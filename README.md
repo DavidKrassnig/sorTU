@@ -1,12 +1,22 @@
-# Good-Enough Golfers
+# sorTU
 
-_Good-Enough Golfers_ is a near-solver for a class of scheduling problems including the
-[Social Golfer Problem](http://mathworld.wolfram.com/SocialGolferProblem.html) and
+This repository is a fork of Brad Buchanan's
+[_Good-Enough Golfers_](https://github.com/islemaster/good-enough-golfers), a
+near-solver for a class of scheduling problems including the
+[Social Golfer Problem](http://mathworld.wolfram.com/SocialGolferProblem.html)
+and
 [Kirkman's Schoolgirl Problem](http://mathworld.wolfram.com/KirkmansSchoolgirlProblem.html).
-The goal is to schedule `g x p` players into `g` groups of size `p` for `w` weeks such that no two players meet more
-than once.
+The underlying goal remains the same: schedule `n` players into `g` groups that
+are as evenly sized as possible for `w` rounds such that no two players meet
+more than once.
 
-Real solutions to these problems can be extremely slow, but approximations are fast and often good enough for real-world purposes.
+This fork adapts the original project for more intuitive, graphical, and
+practical use. The focus here is on making the solver easier to operate in a
+real-world setting through a more visual interface and a workflow that is
+quicker to understand.
+
+Real solutions to these problems can be extremely slow, but approximations are
+fast and often good enough for real-world purposes.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A8GO0PW)
 
@@ -14,9 +24,9 @@ Real solutions to these problems can be extremely slow, but approximations are f
 
 Prerequisites: [NPM](https://www.npmjs.com/)
 
-1. Clone the repo and navigate to the project directory
+1. Clone this repository and navigate to the project directory
    ```sh
-   git clone https://github.com/islemaster/good-enough-golfers.git   
+   git clone <your-fork-url>
    cd good-enough-golfers
    ```
 2. Install any dependencies and then start the local web server
@@ -25,6 +35,40 @@ Prerequisites: [NPM](https://www.npmjs.com/)
    npm start
    ```
 3. Open `http://127.0.0.1:8080/` in your web browser
+
+## Static deployment
+
+This repository includes deployment config for both GitHub Pages and GitLab
+Pages.
+
+- GitHub Pages: [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
+  publishes the static site on pushes to `main` or `master`. In the repository
+  settings, set Pages to deploy from `GitHub Actions`.
+- GitLab Pages: [`.gitlab-ci.yml`](.gitlab-ci.yml) publishes the same static
+  files from the default branch.
+
+Both deployments publish only the files required by the app: `index.html`,
+`index.css`, `index.js`, `favicon.ico`, `lib/`, and `CNAME` when present.
+
+## Licensing
+
+This repository contains code under two licenses.
+
+- The original upstream code by Brad Buchanan remains available under the MIT
+  License. See [LICENSE-MIT](LICENSE-MIT).
+- Code contributed in this fork is licensed under the European Union Public
+  Licence v. 1.2. See [LICENSE-EUPL-1.2](LICENSE-EUPL-1.2).
+
+Where a file contains both untouched upstream code and modifications introduced
+in this fork, the untouched original portions remain under MIT while the fork's
+contributed changes are licensed under EUPL v1.2.
+
+## Fork background
+
+The original project was created by Brad Buchanan to quickly generate useful
+approximate schedules for small-group rotation problems. This fork keeps that
+solver approach and adapts the presentation and interaction model for more
+practical everyday use.
 
 ## History
 

@@ -2,180 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Good-Enough Golfers</title>
+    <title>sorTU</title>
 
     <link rel="stylesheet" href="index.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/immutable@3.8.2/dist/immutable.min.js"></script>
     <script src="index.js" type="text/javascript"></script>
 </head>
 <body>
-    <div id="controls">
-        <h1>Good-Enough Golfers</h1>
-        <div>
-            <div class="help-text">
-                Click the "Recompute" button to get a new solution.
-                <br />Customize group size, number of groups and number of
-                rounds with the sliders.
-                <br />Solutions with more rounds and larger groups take longer
-                to compute.
-                <br />"Use Group Leaders?" keeps the first <em>N</em> players
-                with their respective groups.
+    <div id="app">
+        <button type="button" id="sidebarToggle" aria-label="Seitenleiste ein- oder ausblenden">⬅</button>
+        <button type="button" id="sunToggle" aria-label="Zu dunklem Modus wechseln">🌘︎</button>
+        <button type="button" id="viewModeToggle" aria-label="Zu Teilnehmeransicht wechseln">웃</button>
+        <div id="controls">
+            <div class="controlsHeader">
+                <div class="controlsEyebrow">Konfiguration</div>
+                <h1>sorTU</h1>
+                <p class="controlsLead">
+                    Teilnehmende, Tische und Runden festlegen und danach eine neue Verteilung berechnen.
+                </p>
             </div>
+            <button type="button" id="recomputeButton">Verteilen!</button>
+            <table class="configTable">
+                <tr class="configRow">
+                    <th>Tische</th>
+                    <td class="sliderLabel">
+                      <input type="text" id="groupsBox" value="5" />
+                    </td>
+                    <td class="sliderCell">
+                        <input id="groupsSlider" type="range" min="1" max="50" step="1" value="5"/>
+                    </td>
+                </tr>
+                <tr class="configRow">
+                    <th>Teilnehmer</th>
+                    <td class="sliderLabel">
+                      <input type="text" id="totalPlayersBox" value="20" />
+                    </td>
+                    <td class="sliderCell">
+                        <input id="totalPlayersSlider" type="range" min="1" max="50" step="1" value="20"/>
+                    </td>
+                </tr>
+                <tr class="configRow configRowInfo">
+                    <td colspan="3">
+                        <span id="playersPerGroupValue">4 Teilnehmer pro Tisch</span>
+                    </td>
+                </tr>
+                <tr class="configRow">
+                    <th>Runden</th>
+                    <td class="sliderLabel">
+                      <input type="text" id="forRoundsBox" value="5" />
+                    </td>
+                    <td class="sliderCell">
+                        <input id="forRoundsSlider" type="range" min="1" max="20" step="1" value="5"/>
+                    </td>
+                </tr>
+                <tr class="configRow configRowViewMode">
+                    <th>Ansicht</th>
+                    <td colspan="2">
+                        <div id="viewModeSwitcher" class="viewModeSwitcher">
+                            <button type="button" id="tableViewButton">Tische</button>
+                            <button type="button" id="participantViewButton">Teilnehmer</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <p class="creditsText">
+                Dies ist ein Fork von <a href="https://github.com/islemaster/good-enough-golfers">B Buchanan (2017)'s "Good-Enough Golfers"</a> (MIT License). Modifizierter Code ist lizensiert unter EUPL v1.2.
+            </p>
+            <p class="controlsFooter">
+                David Krassnig, 2026
+                -
+                <a href="https://github.com/islemaster/good-enough-golfers">View Source</a>
+            </p>
         </div>
-        <button type="button" id="recomputeButton">Recompute!</button>
-        <table>
-            <tr>
-                <th>Number of groups</th>
-                <td class="sliderLabel">
-                  <input type=""text" id="groupsBox" value="5" />
-                </td>
-                <td>
-                    <input id="groupsSlider" type="range" min="1" max="50" step="1" value="5"/>
-                </td>
-            </tr>
-            <tr>
-                <th>People per group</th>
-                <td class="sliderLabel"}>
-                  <input type="text" id="ofSizeBox" value="4" />
-                </td>
-                <td>
-                    <input id="ofSizeSlider" type="range" min="2" max="15" step="1" value="4"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Number of rounds</th>
-                <td class="sliderLabel"}>
-                  <input type="text" id="forRoundsBox" value="5" />
-                </td>
-                <td>
-                    <input id="forRoundsSlider" type="range" min="1" max="20" step="1" value="5"/>
-                </td>
-            </tr>
-            <tr>
-              <th>Use group leaders?</th>
-              <td class="sliderLabel">
-                <input id="withGroupLeadersBox" type="checkbox" />
-              </td>
-              <td>&nbsp;</td>
-            </tr>
-        </table>
-        <div>
-            <div>
-                <strong>Player Names</strong>
-            </div>
-            <div class="help-text">
-                Player names can be provided for convenience.
-                <br />If player names are omitted, players will be numbered.
-                <br />Editing player names will update the current solution in
-                real-time; you don't need to click "Recompute."
-                <br />&nbsp;
-                <br /><strong>Privacy:</strong> Names are never sent to our
-                servers. All processing happens on your own computer.
-                <br />&nbsp;
-                <br />If two players have the same name, additional constraints
-                (below) will apply to both of them.
-                <br />&nbsp;
-                <br />Tip: To produce mostly-even groups with an uneven number
-                of players, create players named <tt>[Empty]</tt> to round out
-                your roster, and add an <tt>[Empty],[Empty]</tt> constraint
-                in the next box.
-            </div>
-            <div>
-                <textarea id="playerNames" rows="21">
-Alleson
-Brad
-Charlie
-Danielle
-Fredric
-George
-Harriet
-Ivan
-Jenny
-Karen
-Laura
-Mona
-Nathan
-Olive
-Penelope
-Rachel
-Stan
-Tom
-[Empty]
-[Empty]
-</textarea>
-            </div>
-        </div>
-        <div>
-            <div>
-                <strong>Never allow these pairs</strong>
-            </div>
-            <div class="help-text">
-                Players grouped in this box are never grouped by the solver
-                unless absolutely necessary.
-                <br />Comma-separate names within a group.
-                <br />Put groups on separate lines.
-            </div>
-            <div>
-                <textarea id="forbiddenPairs" rows="6">
-Brad, Danielle
-[Empty], [Empty]
-</textarea>
-            </div>
-        </div>
-        <div>
-            <div>
-                <strong>Prefer splitting these groups</strong>
-            </div>
-            <div class="help-text">
-                Similar to above, but lower priority.
-                The solver avoids grouping players if they're already
-                grouped here, but reducing repeat encounters can take
-                priority in later rounds.
-                <br />Tip: You can encourage the solver to gender-balance
-                groups by listing all players of one gender in a group here.
-            </div>
-            <div>
-                <textarea id="discouragedGroups" rows="6">
-Brad,Ivan,Mona,Stan
-</textarea>
-            </div>
-        </div>
-        <div>
-            <div class="help-text">
-                The <strong>conflict score</strong> is a representation of how
-                far the solution is from perfect - lower is better.
-                <br />The <strong>Download CSV</strong> button provides a pivot
-                view of the solution that makes it easier see the sequence of
-                groups for a given player.
-                <br />&nbsp;
-                <br /><a href="javascript:hideHelp()">Close help.</a>
-            </div>
-        </div>
-        <p>
-            <em>Good-Enough Golfers</em> is a near-solver for a class of scheduling problems including the
-            <a href="http://mathworld.wolfram.com/SocialGolferProblem.html">Social Golfer Problem</a>
-            and
-            <a href="http://mathworld.wolfram.com/KirkmansSchoolgirlProblem.html">Kirkman's Schoolgirl Problem</a>.
-            The goal is to schedule <tt>g x p</tt> players into <tt>g</tt> groups of size <tt>p</tt> for
-            <tt>w</tt> weeks such that no two players meet more than once.
-        </p>
-        <p>
-            Real solutions to these problems can be extremely slow, but approximations are fast and
-            often good enough for real-world purposes.
-        </p>
-        <p>
-            <a href="http://bradleycbuchanan.com">B Buchanan</a>, 2017
-            -
-            <a href="https://github.com/islemaster/good-enough-golfers">View Source</a>
-            -
-            <a href="https://ko-fi.com/bcbeng">Tip Jar</a>
-            -
-            <a id="show-help-link" href="javascript:showHelp()">Help</a>
-            <a id="hide-help-link" href="javascript:hideHelp()">Close Help</a>
-        </p>
-    </div>
-    <div id="results">
+        <div id="resultsShell">
+            <div id="results">
 
+            </div>
+        </div>
     </div>
 </body>
 </html>

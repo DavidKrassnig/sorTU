@@ -1,0 +1,14 @@
+pages:
+  stage: deploy
+  image: alpine:3.20
+  script:
+    - mkdir -p public/lib
+    - cp index.html index.css index.js favicon.ico public/
+    - cp -r lib/* public/lib/
+    - if [ -f CNAME ]; then cp CNAME public/; fi
+    - touch public/.nojekyll
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
