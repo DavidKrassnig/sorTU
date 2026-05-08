@@ -15,11 +15,6 @@ practical use. The focus here is on making the solver easier to operate in a
 real-world setting through a more visual interface and a workflow that is
 quicker to understand.
 
-Real solutions to these problems can be extremely slow, but approximations are
-fast and often good enough for real-world purposes.
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A8GO0PW)
-
 ## Local setup
 
 Prerequisites: [NPM](https://www.npmjs.com/)
