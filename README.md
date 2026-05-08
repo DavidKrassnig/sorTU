@@ -1,6 +1,6 @@
 # sorTU
 
-This repository is a fork of Brad Buchanan's
+sorTU is a fork of Brad Buchanan's
 [_Good-Enough Golfers_](https://github.com/islemaster/good-enough-golfers), a
 near-solver for a class of scheduling problems including the
 [Social Golfer Problem](http://mathworld.wolfram.com/SocialGolferProblem.html)
